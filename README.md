@@ -174,12 +174,16 @@ local     mydir
 ✅ Description:
 
 mydata: Stores MySQL database files persistently.
+
 mydir: Shared between NGINX and PHP-FPM for serving application code.
 
 
 🐳 3. List Running Docker Containers
+
       docker ps
+      
         Sample Output:
+        
           CONTAINER ID   IMAGE            NAME        STATUS        PORTS
 d4fdb49f7715   nginx:latest     myweb       Up 10 mins    0.0.0.0:80->80/tcp
 c1e98dbd273a   php:8.3-fpm      myapp       Up 10 mins
@@ -188,17 +192,30 @@ b9d2f8ab4e3a   mysql:latest     mydb        Up 10 mins    3306/tcp
 ✅ Description:
 
 myweb: Exposes port 80 for public HTTP traffic.
+
 myapp: Runs PHP-FPM to handle backend logic, linked to myweb.
+
 mydb: Manages database storage with exposed port 3306 for internal use.
 
 
+
 ✅ Quick Health Checks
+
 🔧 Task	🔗 Command
+
 List networks	docker network ls
+
 Inspect a network	docker network inspect frontend
+
 List volumes	docker volume ls
+
 Inspect a volume (optional)	docker volume inspect mydata
+
 List running containers	docker ps
+
 Inspect a container	docker inspect myweb
+
 Enter a container (bash shell)	docker exec -it myweb bash
+
 Ping app container from nginx	docker exec -it myweb ping myapp
+
