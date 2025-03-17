@@ -13,59 +13,106 @@ The services are isolated in different Docker networks to follow the best practi
 
 ⚙️ Services Overview
 1. myweb (NGINX)
+   
   Exposes port 80.
+  
   Forwards PHP requests to the myapp (PHP-FPM) service.
+  
   Mounted default.conf for custom configuration.
-2. myapp (PHP-FPM)
+  
+3. myapp (PHP-FPM)
+   
   Runs PHP 8.3 FPM.
+  
   Shares code volume with myweb to serve dynamic content.
-3. mydb (MySQL)
+  
+5. mydb (MySQL)
+   
   Runs MySQL with root password and database creation.
+  
   Stores persistent data in Docker volume mydata.
+  
 
 📦 docker-compose.yml
+
     services:
+    
   mydb:
+  
     image: mysql
+    
     ports:
+    
       - "3306:3306"
+      
     environment:
+    
       MYSQL_ROOT_PASSWORD: pass@123
+      
       MYSQL_DATABASE: mydatabase
+      
     networks:
+    
       - backend
+      
     volumes:
+    
       - mydata:/var/lib/mysql
+      
 
   myapp:
+  
     image: php:8.3-fpm
+    
     ports:
+    
       - "9000:9000"
+      
     networks:
+    
       - frontend
+      
       - backend
+      
     volumes:
+    
       - mydir:/var/www/html
+      
 
   myweb:
+  
     image: nginx
+    
     ports:
+    
       - "80:80"
+      
     depends_on:
+    
       - mydb
+      
       - myapp
+      
     networks:
+    
       - frontend
+      
     volumes:
+    
       - mydir:/usr/share/nginx/html
+      
 
 
 networks:
+
   frontend:
+  
   backend:
 
 volumes:
+
   mydata:
+  
   mydir:
 
 
@@ -96,9 +143,13 @@ Commercial support is available at
 
 
 🔍 Docker Verification Commands
+
 🕸️ 1. List All Docker Networks
+
       docker network ls
+      
         Sample Output:
+        
           NETWORK ID     NAME         DRIVER    SCOPE
 f44c73d2583f   frontend     bridge    local
 aa3b88d27849   backend      bridge    local
@@ -111,8 +162,11 @@ frontend: Connects NGINX and PHP-FPM (App) containers.
 backend: Isolates PHP-FPM (App) and MySQL (DB) communication.
 
 💾 2. List Docker Volumes
+
       docker volume ls
+
         Sample Output:
+        
           DRIVER    VOLUME NAME
 local     mydata
 local     mydir
