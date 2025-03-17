@@ -1,10 +1,15 @@
-🚀 Multi-Tier Web Application Deployment Using Docker Compose (NGINX, PHP-FPM, MySQL)
+#🚀 Multi-Tier Web Application Deployment Using Docker Compose (NGINX, PHP-FPM, MySQL)
+
 This project demonstrates a multi-tier web application architecture using Docker Compose. The application includes:
 
     Nginx (as a web server and reverse proxy)
+    
     PHP-FPM (for application logic)
+    
     MySQL (for database storage)
+    
 The services are isolated in different Docker networks to follow the best practices of multi-tier architecture.
+
 
 ⚙️ Services Overview
 1. myweb (NGINX)
